@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Layout (Sprite)</title>
+    <style>
+        body{
+            border: 10px solid white;
+            background-color: #179F53;
+            margin:0;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+
+        header{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        header figure.logo {
+            height: 192px;
+            width: 192px;
+            background: url(../images/spriteweb.png) no-repeat;
+            background-position: -10px -398px;
+        }
+        header menu {
+            display: flex;
+            gap: 1.2rem;
+        }
+        header menu a:is(:link, :visited) {
+            color: white;
+            background-color: #0006;
+            border-bottom: 4px white solid ;
+            padding: 1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            text-align: center;
+            transition: all 0.5s ease-in;
+            width: 120px;
+        }
+        header menu a:is(:hover) {
+            background-color: #0009;
+            border-bottom: 4px solid #ff0;
+        }
+        section{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 10px;
+            padding-left: 38px;
+        }
+        section>div.images{
+            width: 823px;
+            height: 200px;
+            display: flex;
+            padding: 5px 5px 10px 5px;
+            background-color: #0006;
+
+            span.span1:is(:hover) .span2{
+                    background-color: #fff;
+                    justify-content: center;
+                    align-items: center;
+                    height: 50px;
+                    text-align: center;
+                    display: flex;
+
+                }
+            
+            span.span1{
+                background: url(../images/spriteweb.png);
+                background-position:300px -15px ;
+                width:300px ;
+                margin: 10px;
+                border: white 4px solid;
+                
+                span.span2{
+                    background-color: #fff5;
+                    justify-content: center;
+                    align-items: center;
+                    height: 50px;
+                    text-align: center;
+                    display: flex;
+                    transition: all 0.5s ease-in;
+
+                }
+               
+                
+            }
+        }
+
+        div.textos{
+            background-color: rgba(20, 112, 61, 0.4);
+            margin-top:20px;
+            width: 840px;
+            display: flex;
+            flex-direction: column;
+            div.texto{
+                background-color: #fff;
+                padding: 0 5px 0 5px;
+                display: flex;
+                margin: 10px;
+                justify-content: space-between;
+                align-items: center;
+
+                
+                p{
+                    width: 475px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-left: 30px;
+                    box-sizing: border-box;
+                    color: rgba(6, 197, 245, 0.801);
+                    transition: all 0.5s ease-in;
+                    text-align: justify;
+                }
+                p:is(:hover) {
+                    color: rgb(46, 224, 30);
+                }
+                
+                span.logo{
+                    width: 90px;
+                    height: 90px;
+                    background: url(../images/spriteweb.png);
+                    background-position: -290px -490px ;
+
+                }
+                span.lata{ 
+                    background:url(../images/spriteweb.png);
+                    background-position: 0 ;
+                    width: 200px;
+                    height: 200px;
+                }
+               
+            }
+        }
+        footer{
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #fff;
+            width: 834px;
+  margin-left: 551px;
+            margin-bottom: 20px;
+            height: 249px;
+            figure{
+                background: url(../images/spriteweb.png);
+                background-position: 300px -430px;
+                width: 300px;
+                height: 300px;
+                display: flex;
+                margin-left: 300px;
+            }
+            menu{
+               display: flex;
+               flex-direction: row;
+               justify-content: space-between;
+                margin-top: 1px;
+                margin-right: 20px;
+                
+                
+                   
+                
+            }
+            menu a:is(:link, :visited) {
+            border-bottom: 4px  #fff solid ;
+            color: rgb(0, 0, 0);
+            background-color: rgb(255, 255, 255);
+            padding: 1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            text-align: center;
+            transition: all 0.5s ease-in;
+            width: 120px;
+            
+            
+            
+        }
+            menu a:is(:hover) { 
+                border-bottom: 4px rgb(2, 255, 44) solid ;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <header>
+            <figure class="logo"></figure>
+            <menu>
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Portfolio</a>
+                <a href="#">Servicios</a>
+                <a href="#">Contact</a>
+            </menu>
+        </header>
+        <section>
+            <div class="images">
+                <span class="span1">
+                    <span class="span2"><b>Sprite 01 </b></span>
+                </span>
+                <span class="span1">
+                    <span class="span2"><b>Sprite 02 </b></span>
+                </span>
+                <span class="span1">
+                    <span class="span2"><b>Sprite 03 </b></span>
+                </span>
+            </div>
+
+            <div class="textos">
+                <div class="texto">
+                    <span class="logo"></span>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi, repellendus quasi dolorem quisquam reprehenderit labore similique inventore iure provident cupiditate quia, id nobis, pariatur perferendis? Harum animi modi nihil corrupti!
+                    Error odit neque nemo alias. Veniam harum aspernatur quia ullam, esse consequatur sequi neque corporis sapiente eveniet alias unde natus minus, libero vero expedita repellendus veritatis nam quos. Quam, nulla.</p>
+                    <span class="lata"></span>
+                </div>
+                <div class="texto">
+                    <span class="logo"></span>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi, repellendus quasi dolorem quisquam reprehenderit labore similique inventore iure provident cupiditate quia, id nobis, pariatur perferendis? Harum animi modi nihil corrupti!
+                    Error odit neque nemo alias. Veniam harum aspernatur quia ullam, esse consequatur sequi neque corporis sapiente eveniet alias unde natus minus, libero vero expedita repellendus veritatis nam quos. Quam, nulla.</p>
+                    <span class="lata"></span>
+                </div>
+                <div class="texto">
+                    <span class="logo"></span>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi, repellendus quasi dolorem quisquam reprehenderit labore similique inventore iure provident cupiditate quia, id nobis, pariatur perferendis? Harum animi modi nihil corrupti!
+                    Error odit neque nemo alias. Veniam harum aspernatur quia ullam, esse consequatur sequi neque corporis sapiente eveniet alias unde natus minus, libero vero expedita repellendus veritatis nam quos. Quam, nulla.</p>
+                    <span class="lata"></span>
+                </div>
+               
+            </div>
+        </section>
+        <footer>
+            <figure>
+
+            </figure>
+            <menu>
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Portfolio</a>
+                <a href="#">Servicios</a>
+                <a href="#">Contact</a>
+            </menu>
+        </footer>
+    </main>
+</body>
+
+</html>
