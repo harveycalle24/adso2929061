@@ -2,47 +2,144 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>44-grid</title>
-    <style>
-		.wrapper {
-			display: grid;
-			grid-template-columns: 1fr 5fr 2fr;
-			grid-template-rows: 5fr 20fr 5fr;
-			grid-gap: 10px;
-			min-height: 100vh;
-		}
+    <title>45-challenge-grid</title>
+    <link rel="stylesheet" href="../css/styles.css">
+        <style>
+    body {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh
+}
+div {
+  display: grid;
+  place-items: center;
+  /*
+  grid-template-columns: repeat(3, 140px);
+  grid-template-rows: repeat(3, 140px);
+  */
+  grid-template-areas: 
+      "img01 img02 img03"
+      "img04 img02 img05"
+      "img06 img06 img07";
+  margin: 2rem auto;
+  width: calc(140px * 3);
+  gap: 8px;
+}
 
-		header {
-			grid-column-start: 1;
-			grid-column-end: 4;
-		}
+div img {
+  border-radius: 4px;
+  outline: solid #000;
+  object-fit: cover;
+  height: 140px;
+  width: 140px;
+}
 
-		footer {
-			grid-column-start: 1;
-			grid-column-end: 4;
-		}
+div.grid1 img.img01 {
+  grid-area: img01;
+}
+div.grid1 img.img02 {
+  grid-area: img02;
+  height: calc(140px * 2 + 8px);
+}
+div.grid1 img.img03 {
+  grid-area: img03;
+}
+div.grid1 img.img04 {
+  grid-area: img04;
+}
+div.grid1 img.img05 {
+  grid-area: img05;
+}
+div.grid1 img.img06 {
+  grid-area: img06;
+  width: calc(140px * 2 + 8px);
+}
+div.grid1 img.img07 {
+  grid-area: img07;
+}
+div.grid2{
+  display: grid;
+  place-items: center;
+  /*
+  grid-template-columns: repeat(3, 140px);
+  grid-template-rows: repeat(3, 140px);
+  */
+  grid-template-areas: 
+      "img01 img01 img02 img03"
+      "img01 img01 img04 img04"
+      "img05 img06 img04 img04";
+  margin: 2rem auto;
+  width: calc(140px * 3);
+  gap: 8px;
+}
+div img {
+  border-radius: 4px;
+  outline: solid #000;
+  object-fit: cover;
+  height: 140px;
+  width: 140px;
+}
 
-		.wrapper * {
-			background: #4875b4;
-            color: #c5d0e6;
-            font-family: Arial;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			margin-bottom: 1px;
-			margin-right: 1px;
-		}
-	</style>
+div.grid2 img.img01 {
+  grid-area: img01;
+  height: calc(140px * 2 + 8px);
+  width: calc(140px * 2 + 8px);
+}
+div.grid2 img.img02 {
+  grid-area: img02;
+}
+div.grid2 img.img03 {
+  grid-area: img03;
+}
+div.grid2 img.img04 {
+  grid-area: img04;
+  width: calc(140px * 2 + 8px);
+  height: calc(140px * 2 + 8px);
+}
+div.grid2 img.img05 {
+  grid-area: img05;
+}
+div.grid2 img.img06 {
+  grid-area: img06;
+}
+
+    </style>
 </head>
-<body>
-	<div class="wrapper">
-		<header class="items">HEADER</header>
-		<nav class="items">NAV</nav>
-		<div class="items contents">CONTENTS</div>
-		<aside class="items">ASIDE</aside>
-		<footer class="items">FOOTER</footer>
-	</div>
+<body class="css">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            </a>
+    </nav>
+    <main>
+        <header>
+            <h1>45-challenge-grid</h1>
+            <h2>Irregular Gallery. </h2>
+        </header>
+        <section>
+
+            <div class="grid1">
+                <img src="https://imgres?q=dragon%20ball%20personajes%20cada%20uno%20&imgurl=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0665%2F3404%2F7973%2Ffiles%2FSon_Goku_dans_Dragon_Ball_600x600.webp%3Fv%3D1715957011&imgrefurl=https%3A%2F%2Fwww.cartoontoi.fr%2Fes%2Fblogs%2Fblog-manga%2Fpersonajes-dragon-ball&docid=2ufGniiRQh939M&tbnid=-eH8luhX0as9iM&vet=12ahUKEwjd897i48aJAxVeSjABHey1G7YQM3oECFoQAA..i&w=600&h=338&hcb=2&ved=2ahUKEwjd897i48aJAxVeSjABHey1G7YQM3oECFoQAA" class="img01">
+                <img src="https://i.pinimg.com/236x/ab/77/54/ab7754772847fd604d55bc20cb04c7e9.jpg" class="img02">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdwlmWRq7xT1zdtZuihdaKd5qE8FXmcoyYUQ&s" class="img03">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRifJAeSL2pFcBx0itmA4TzSOLZOGBwJV0m0g&s" class="img04">
+                <img src="https://i.pinimg.com/236x/80/30/53/803053653953bc565713e315d0a4bd2c.jpg" class="img05">
+                <img src="https://elcomercio.pe/resizer/v2/QNDABU7TS5C4VDZUBFVBMK5GHU.webp?auth=ad14ad704a901f638929f916c52b83f04225a455d7c01628cec40f8893e52650&width=2560&height=2115&quality=75&smart=true" class="img06">
+                <img src="https://w7.pngwing.com/pngs/368/608/png-transparent-mojo-jojo-illustration-mojo-jojo-cartoon-network-villain-blossom-bubbles-and-buttercup-girl-power-miscellaneous-purple-television.png" class="img07">
+              
+            </div>
+            <div class="grid2">
+                <img src="https://resizer.glanacion.com/resizer/v2/frozen-fue-estrenada-en-2013-y-recaudo-1276-7VSEVJ6NCVEZLM7LFUX6EGCGUA.jpg?auth=043682440cbcdf3f1af8ffa674e68edd4f79f368910ba126857081dd1be8cd2a&width=768&quality=70&smart=false" class="img01">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS7zPftJE0UYNl2ygahJIZcUqgBTyluXD9kw&s" class="img02">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd6nPl2FXuxalLUMuakMlfj-BJwj0nei2v_w&s" class="img03">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9orqlGnFItceCEdqo1ECEJzT2xVm073OzEw&s" class="img04">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlgNVe7QkGLhCSOkEa6u6Ww7wl7hIMNHyYjQ&s" class="img05">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgOO7UiEdC7Hs_XS4ZuFGbN4_-CjLYKoNh-g&s" class="img06">
+              
+            </div>
+        </section>
+
 </body>
+
 </html>
