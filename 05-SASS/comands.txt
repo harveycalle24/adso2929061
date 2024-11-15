@@ -1,0 +1,5 @@
+sass input.scss output.css --no-source-map Comando para convertir sass a css sin mapa
+
+sass --watch sass/archivo.sass:css/archivo.css --no-source-map hacer que sass haga un watching sin mapa
+
+ 
