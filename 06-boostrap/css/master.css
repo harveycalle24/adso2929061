@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;800&display=swap');
+body {
+    background-color: #1811a0bd;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23191655' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
+    font-family: Poppins, sans-serif;
+}
+
+nav.controls {
+    position: fixed;
+    a:is(:link, :visited) {
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #461D65;
+        height: 40px;
+        transform: scale(0.8);
+        opacity: 0.6;
+        padding: 10px;
+        width: 40px;
+        transition: all 0.4s ease-in;
+    }
+    a:is(:hover) {
+        opacity: 1;
+        transform: scale(1);
+    }
+    svg {
+        width: 40px;
+    }
+}
+
+main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    min-height: 100vh;
+
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h1, h2 {
+            color: #fff9;
+            text-align: center;
+            margin: 0;
+        }
+        h1 {
+            font-size: 3.4rem;
+            font-weight: 400;
+        }
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 300;
+        }
+        img {
+            border-radius: 50%;
+            background-color: #fff9;
+            object-fit: contain;
+            height: 160px;
+            width: 160px;
+            border: 10px solid #431A94;
+        }
+    }
+
+    menu {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        gap: 0.4rem;
+        
+        a:is(:link, :visited) {
+            background-color: #0009;
+            border-radius: 50px;
+            display: flex;
+            color: #fffd;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            text-decoration: none;
+            transition: all 0.5s ease-in;
+            width: 280px;
+
+            i {
+                background-color: #6528e0;
+                border-radius: 20px;
+                color: #fff9;
+                font-style: normal;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease-in;
+                height: 34px;
+                width: 34px;
+            }
+        }
+
+        a:is(:hover) {
+            transform: translate(-10px);
+            background-color: #000c;
+        }
+
+        a:is(:hover) i {
+            transform: scale(1.4);
+        }
+
+        h3 {
+            align-self: center;
+            font-size: 2.4rem;
+            color: #fff9;
+        }
+    }
+
+    section {
+        border-radius: 10px;
+        background-color: #fff9;
+        color: #0009;
+        padding: 10px;
+        width: 400px;
+        h3 {
+            border-bottom: 2px dotted #0004;
+            color: #0006;
+            font-size: 1.6rem;
+            margin: 0;
+            width: fit-content;
+        }
+        p {
+            font-size: 1.4rem;
+            margin: 10px 0;
+        }
+        xmp {
+            border-radius: 10px;
+            background-color: #0009;
+            color: #fff9;
+            padding: 0 10px 10px 10px;
+        }
+    }
+}

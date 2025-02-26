@@ -405,3 +405,51 @@ body.sass {
         }
     }
 }
+/* - - - - - - - - - - - - - */
+/* BOOSTRAP */
+/* - - - - - - - - - - - - - */
+body.bootstrap {
+    background-color: #05097C;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='123' height='123' viewBox='0 0 200 200'%3E%3Cpolygon fill='%23000000' points='100 0 0 100 100 100 100 200 200 100 200 0'/%3E%3C/svg%3E");
+    background-size: cover;
+    background-attachment: fixed;
+    main {
+        header {
+            h1 {
+                color: white;
+            }
+
+            h2 {
+                color: #fffdfd;
+                border-bottom: none;
+                max-width: 80%;
+                font-weight: 400;
+            }
+        }
+
+        section {
+            width: 80%;
+
+            p {
+                color: #170080;
+                font-size: 1rem;
+                align-items: center;
+            }
+        }
+
+        menu {
+            a:is(:link, :visit) {
+                color: #f8f3f2;
+                font-weight: 500;
+
+                span {
+                    background-color: #170080;
+                }
+            }
+
+            h3 {
+                color: blue;
+            }
+        }
+    }
+}
