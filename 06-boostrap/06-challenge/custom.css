@@ -1,0 +1,44 @@
+
+nav.navbar.bg-custom {
+  background-color: #000000;
+  a.navbar-brand,
+  a.nav-link {
+      color: #d30000;
+  }
+}
+/* Hero Section */
+div.row.hero {
+  padding-top: 58px;
+  div.col:nth-child(1) {
+      background-color: #bd0000;
+      height: 680px;
+      a.btn.bg-custom {
+          background-color: #000;
+          color: #ff0000;
+      }
+  }
+  div.col:nth-child(2) {
+      background:  url(../06-challenge/images/harvey.png) no-repeat center bottom;
+      background-size: 480px;
+      height: 680px;
+  }
+}
+/* About */
+div.row.about {
+  padding-top: 0px;
+  div.col:nth-child(2) {
+      background-color: #bd0000;
+      height: 680px;
+      a.btn.bg-custom {
+          background-color: #000000;
+      }
+      .progress-bar.bg-custom {
+          background-color: #db2c2c;
+      }
+  }
+  div.col:nth-child(1) {
+      background:  url(../06-challenge/images/image.png) no-repeat center bottom;
+      background-size: 480px;
+      height: 680px;
+  }
+}
