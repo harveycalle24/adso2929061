@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13- Layout (Challenge)</title>
+    <link rel="shortcut icon" href="favicon.ico" type="images/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+    </style>
+</head>
+<body class="bg-[#1e1e1e] 
+               font-[Poppins]">
+    <main class="min-h-[100dvh]
+                 flex 
+                 justify-center 
+                 items-center">
+        <!-- Screen 01 - Welcome -->
+        <section class="welcome 
+                        w-[430px] 
+                        h-[890px]
+                        my-4
+                        rounded-[20px]
+                        overflow-hidden
+                        bg-[url(images/logo1kai.png)]
+                      bg-[white]
+                        relative
+                        bg-top
+                        bg-no-repeat">
+            <div class="absolute
+                        rounded-t-[40px]
+                        bottom-0
+                        w-full
+                        h-[360px]
+                      bg-white">
+                    <figure class="logo
+                                h-[180px]
+                                w-[130px]
+                                mx-auto
+                                mt-[-60px]
+                                bg-[url(images/kaiyu8.png)]">
+                    </figure>
+                    <h2 class="text-center
+                               text-[32px]
+                               font-[500]
+                               mt-[38px]
+                             text-[#444]">Welcome to the cleaning</h2>
+                    <h2 class="text-center
+                               text-[32px]
+                               mt-[-10px]
+                               font-[600]
+                             text-[#444]">squad</h2>
+                    <p class="text-[#888]
+                                font-[400]
+                                text-[16px]
+                                mx-auto
+                                mt-[40px]
+                                w-[272px]
+                                text-center">
+                        
+                    </p>
+                    <div class="actions
+                                w-[320px]
+                                flex
+                                mt-[42px]
+                                mx-auto">
+                        <a href="" class="w-[160px]
+                                          h-[55px]
+                                          flex
+                                          justify-center
+                                          items-center
+                                        text-white
+                                          rounded-s-[80px]
+                                        bg-[#c61f4c]">Sign up</a>
+                        <a href="" class="w-[160px]
+                                          h-[55px]
+                                          flex
+                                          justify-center
+                                          items-center
+                                        text-[#c61f4c]
+                                          border-2
+                                          rounded-e-[80px]
+                                        bg-[#fff]">Sign in</a>
+                    </div>
+
+            </div>
+        </section>
+        <!-- Screen 02 - Signin -->
+        <section class="signin"></section>
+        <!-- Screen 03 - Signup -->
+        <section class="signup"></section>
+    </main>
+    <script src="js/tailwind.js"></script>
+</body>
+</html>
