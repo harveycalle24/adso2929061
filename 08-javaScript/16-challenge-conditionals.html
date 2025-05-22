@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>15 - Challenge Conditional</title>
+  <title>Weather App Challenge</title>
   <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <style>
     section {
       display: flex;
@@ -13,71 +14,80 @@
     }
 
     .weather {
-      max-width: 420px;
+      max-width: 400px;
       width: 100%;
-      padding: 35px;
-      border-radius: 25px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-      background: #04856f;
+      padding: 30px;
+      border-radius: 20px;
       color: #f8f9fa;
       transition: all 0.4s ease;
       text-align: center;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      overflow: hidden;
       position: relative;
+      overflow: hidden;
+      z-index: 1;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
 
     .weather::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
-      opacity: 0;
-      transition: all 0.6s ease;
-      
-      
-    }
-
-    .weather:hover::before {
-      opacity: 1;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+      z-index: -1;
     }
 
     .weather.day {
-      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-      color: #1e293b;
-      box-shadow: 0 15px 35px rgba(30, 41, 59, 0.1);
+      background-image: url(image/weather/day.svg)
+    
+    }
+
+    .weather.day::before {
+      background-image: url('https://source.unsplash.com/random/800x600/?sunny,day');
     }
 
     .weather.night {
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: #f8fafc;
-      box-shadow: 0 15px 35px rgba(2, 6, 23, 0.3);
+      background: linear-gradient(135deg, rgba(15, 32, 39, 0.8), rgba(44, 83, 100, 0.9));
+      color: #f1f1f1;
+    }
+
+    .weather.night::before {
+      background-image: url(image/weather/noche.png)
+    }
+
+    .day-night-indicator {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.5rem;
+      color: #FFD700; /* Color dorado para el sol */
+      text-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+
+    .weather.night .day-night-indicator {
+      color: #E2E2E2; /* Color plateado para la luna */
     }
 
     .weather input.q {
-      padding: 12px 16px;
+      padding: 12px 15px;
       width: 100%;
       margin-bottom: 15px;
-      border-radius: 12px;
-      border: 2px solid rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      border: 1px solid #ccc;
       font-size: 1rem;
       transition: all 0.3s ease;
-      background-color: rgba(255, 255, 255, 0.9);
-    }
-
-    .weather.day input.q {
-      border-color: rgba(4, 133, 111, 0.3);
+      background: rgba(255, 255, 255, 0.9);
     }
 
     .weather.night input.q {
-      background-color: rgba(15, 23, 42, 0.7);
-      color: #f8fafc;
-      border-color: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+      color: #f1f1f1;
+      border-color: #2c5364;
     }
 
     .weather input.q:focus {
@@ -88,13 +98,12 @@
 
     .weather.night input.q:focus {
       border-color: #4db6ac;
-      box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.3);
     }
 
     .weather button.btn {
-      padding: 12px 24px;
+      padding: 12px 20px;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       background-color: #04856f;
       color: white;
       cursor: pointer;
@@ -103,57 +112,51 @@
       transition: all 0.3s ease;
       width: 100%;
       margin-bottom: 20px;
-      letter-spacing: 0.5px;
+      backdrop-filter: blur(5px);
     }
 
     .weather button.btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     }
 
     .weather.day button.btn {
-      background: linear-gradient(to right, #04856f, #07b89e);
+      background: linear-gradient(to right, #04856f, #00bcd4);
     }
 
     .weather.day button.btn:hover {
-      background: linear-gradient(to right, #037862, #06a38d);
+      background: linear-gradient(to right, #037862, #00acc1);
     }
 
     .weather.night button.btn {
       background: linear-gradient(to right, #4db6ac, #00897b);
-      color: #f8fafc;
     }
 
     .weather.night button.btn:hover {
       background: linear-gradient(to right, #3da89e, #00796b);
     }
 
-    .weather img {
-      width: 100px;
-      height: 100px;
+    .weather img.weather-icon {
+      width: 90px;
+      height: 90px;
       margin: 15px 0;
-      filter: drop-shadow(3px 5px 5px rgba(0, 0, 0, 0.3));
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.4));
     }
 
     .show h3 {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       margin-bottom: 8px;
       font-weight: 600;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
     .show p {
       margin: 8px 0;
       font-size: 1.1rem;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
-    .show .weather-details {
+    .weather-details {
       display: flex;
       justify-content: space-around;
       margin-top: 20px;
@@ -161,15 +164,15 @@
       border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
 
-    .weather.night .show .weather-details {
+    .weather.night .weather-details {
       border-top-color: rgba(255, 255, 255, 0.1);
     }
 
-    .show .detail {
+    .detail {
       text-align: center;
     }
 
-    .show .detail p:first-child {
+    .detail p:first-child {
       font-weight: 500;
       font-size: 0.9rem;
       opacity: 0.8;
@@ -180,7 +183,7 @@
         padding: 25px 20px;
       }
       .show h3 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
       }
       .show p {
         font-size: 1rem;
@@ -198,15 +201,18 @@
   </nav>
   <main>
     <header>
-      <h1>15 - Challenge Conditional</h1>
+      <h1>Weather App</h1>
       <p>
-        Solve problems using conditional logic.
+        Check current weather conditions anywhere
       </p>
     </header>
     <section>
       <figure class="weather">
-        <input type="text" class="q" placeholder="Enter a location">
-        <button class="btn">Show</button>
+        <div class="day-night-indicator">
+          <i class="fas fa-sun"></i>
+        </div>
+        <input type="text" class="q" placeholder="Enter a city name...">
+        <button class="btn">Show Weather</button>
         <div class="show"></div>
       </figure>
     </section>
@@ -216,15 +222,26 @@
     const btn = document.querySelector('.btn');
     const show = document.querySelector('.show');
     const weatherBox = document.querySelector('.weather');
+    const dayNightIndicator = document.querySelector('.day-night-indicator i');
 
-    btn.addEventListener('click', () => {
+    const handleSearch = () => {
       if (q.value.trim()) {
         showWeather(q.value.trim());
+      }
+    };
+
+    btn.addEventListener('click', handleSearch);
+
+    q.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleSearch();
       }
     });
 
     const showWeather = async (location) => {
       try {
+        show.innerHTML = '<p>Loading weather data...</p>';
+        
         const url = `https://api.weatherapi.com/v1/current.json?key=2d5e221c0a4341b29ce10745251005&q=${location}`;
         const response = await fetch(url);
         const data = await response.json();
@@ -232,24 +249,30 @@
         const info = {
           country: data.location.country,
           name: data.location.name,
-          time: data.location.localtime,
+          time: new Date(data.location.localtime).toLocaleString(),
           temp: data.current.temp_c,
           isDay: data.current.is_day,
           icon: data.current.condition.icon,
           condition: data.current.condition.text,
           humidity: data.current.humidity,
-          fog: data.current.vis_km,
           wind: data.current.wind_kph,
-          feelsLike: data.current.feelslike_c
+          feelsLike: data.current.feelslike_c,
+          visKm: data.current.vis_km
         };
 
+        // Actualizar tema día/noche
         weatherBox.classList.remove('day', 'night');
-        weatherBox.classList.add(info.isDay === 1 ? 'day' : 'night');
+        const isDayTime = info.isDay === 1;
+        weatherBox.classList.add(isDayTime ? 'day' : 'night');
+        
+        // Actualizar icono día/noche
+        dayNightIndicator.className = isDayTime ? 'fas fa-sun' : 'fas fa-moon';
 
+        // Mostrar los datos del clima
         show.innerHTML = `
           <h3>${info.name}, ${info.country}</h3>
           <p>${info.time}</p>
-          <img src="https:${info.icon}" alt="${info.condition}">
+          <img class="weather-icon" src="https:${info.icon}" alt="${info.condition}">
           <p><strong>${info.temp}°C</strong> - ${info.condition}</p>
           <div class="weather-details">
             <div class="detail">
@@ -267,10 +290,15 @@
           </div>
         `;
       } catch (err) {
-        show.innerHTML = '<p>Error: city not found or API problem.</p>';
+        show.innerHTML = '<p>Error: Please enter a valid city name</p>';
         weatherBox.classList.remove('day', 'night');
       }
     };
+
+    // Cargar datos iniciales
+    window.addEventListener('load', () => {
+      showWeather('London');
+    });
   </script>
 </body>
 </html>

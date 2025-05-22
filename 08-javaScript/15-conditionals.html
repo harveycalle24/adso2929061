@@ -80,7 +80,6 @@
         result = document.querySelector('.result')
         today = document.querySelector('.today')
         year = document.querySelector('.year')
-     
 
 
         //IF - ELSE
@@ -88,11 +87,11 @@
             const answer = prompt('How many is 1024 / 128 ?')
             if (answer == 8) {
                 result.classList.add('success')
-                result.textContent = (`🎊🎊🎊Congratulation ${answer}: its Correct!`)
+                result.textContent = (`🎊🎊🎊 Congratulation 🎊🎊🎊    ${answer}: its Correct!`)
             }
             else {
                 result.classList.add('error')
-                result.textContent = (`😒😒😒Sorry ${answer}: its Incorrect!`)
+                result.textContent = (`Sorry: Answer is incorrect 😒😒😒   ${answer}: its Incorrect!`)
             }
         })
 
@@ -101,19 +100,19 @@
         const ndate = new Date()
         switch (ndate.getDay()) {
             case 1:
-                today.textContent = `Today is: Monday 🫥`
+                today.textContent = `Today is: Monday 🥱`
                 break;
             case 2:
-                today.textContent = `Today is: Tuesday 😒`
+                today.textContent = `Today is: Tuesday 🤗`
                 break;
             case 3:
-                today.textContent = `Today is: Wednesday 🙄`
+                today.textContent = `Today is: Wednesday 😁`
                 break;
             case 4:
-                today.textContent = `Today is: Thursday 😌`
+                today.textContent = `Today is: Thursday 🤩`
                 break;
             case 5:
-                today.textContent = `Today is: friday 😛`
+                today.textContent = `Today is: friday 😍`
                 break;
             default:
                 today.textContent = `Today is: Weekend 😎`
@@ -121,10 +120,10 @@
         }
 
         //Ternary Operator
-        const ydate = new Date('2025-05-14')
+        const ydate = new Date('2024-05-14')
         const leap = (ydate.getFullYear() % 4 == 0) ? 'Leap Year' : 'Not leap Year'
         year.textContent = `${ydate.getFullYear()}: ${leap}`
-    </script>
+     </script>
 </body>
 
 </html>
