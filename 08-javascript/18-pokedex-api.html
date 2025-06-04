@@ -9,12 +9,13 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
     <style>
-        select.pk-generation{
+        select.pk-generation {
             appearance: none;
             padding: 0.4rem 0.8rem;
             display: flex;
             margin: 2rem auto;
         }
+
         ul.pokemons {
             list-style: none;
             margin: 0;
@@ -27,6 +28,7 @@
                 border: 2px solid #fff9;
                 border-radius: 0.4rem;
                 text-align: center;
+
                 h4,
                 h5 {
                     margin: 0;
@@ -34,7 +36,19 @@
                     color: white;
                 }
             }
+            &.hide{
+                display: none;
+            }
 
+        }
+
+        img.loader{
+            display: flex;
+            margin: 8rem auto;
+            width: 160px;
+            &.hide{
+                display: none;
+            }
         }
     </style>
 </head>
@@ -56,7 +70,10 @@
 
         </header>
         <section>
-             <select class="pk-generation"></select>
+            <select class="pk-generation"></select>
+
+            <img class="loader" src="images/loader-bulb.gif" alt="">
+
             <ul class="pokemons"></ul>
         </section>
     </main>
@@ -64,33 +81,33 @@
 
         //Objects
 
-        const types={
-            normal:     "#a8a77a",
-            fire:       "#ee8130",
-            water:      "#6390f0",
-            electric:   "#f7d02c",
-            grass:      "#7ac74c",
-            ice:        "#96d9d6",
-            fighting:   "#c22e28",
-            poison:     "#a33ea1",
-            ground:     "#e2bf65",
-            flying:     "#a98ff3",
-            psychic:    "#f95587",
-            bug:        "#a6b91a",
-            rock:       "#b6a136",
-            ghost:      "#735797",
-            dragon:     "#6f35fc",
-            dark:       "#705746",
-            steel:      "#b7b7ce",
-            fairy:      "#d685ad",
-            shadow:     "#5a5a5a",
-            unknown:    "#68a090",
+        const types = {
+            normal: "#a8a77a",
+            fire: "#ee8130",
+            water: "#6390f0",
+            electric: "#f7d02c",
+            grass: "#7ac74c",
+            ice: "#96d9d6",
+            fighting: "#c22e28",
+            poison: "#a33ea1",
+            ground: "#e2bf65",
+            flying: "#a98ff3",
+            psychic: "#f95587",
+            bug: "#a6b91a",
+            rock: "#b6a136",
+            ghost: "#735797",
+            dragon: "#6f35fc",
+            dark: "#705746",
+            steel: "#b7b7ce",
+            fairy: "#d685ad",
+            shadow: "#5a5a5a",
+            unknown: "#68a090",
         }
 
 
-        const generations={
+        const generations = {
             range: [
-                { from: 1  , to: 151 },
+                { from: 1, to: 151 },
                 { from: 152, to: 251 },
                 { from: 252, to: 386 },
                 { from: 387, to: 493 },
@@ -104,21 +121,32 @@
 
         // select
         const pkGeneration = document.querySelector('.pk-generation')
+        
+        pkGeneration.innerHTML = `<option value="">Select a generation...</option>`
         generations['range'].forEach((element, index) => {
-            pkGeneration.innerHTML +=`<option value="${index}">Generation ${++index}</option>`
+            pkGeneration.innerHTML += `<option value="${index}">Generation ${++index}</option>`
         });
 
 
         //events
-        pkGeneration.addEventListener('change', function(e) {
-            loadPokemon(generations.range[this.value].from,generations.range[this.value].to)
+        pkGeneration.addEventListener('change', function (e) {
+            if (this.value != "") {
+                loadPokemon(generations.range[this.value].from, generations.range[this.value].to)
+            }
+
         })
 
         //Elements 
         const pokemons = document.querySelector('.pokemons')
-
+        const loader = document.querySelector('.loader')
         const loadPokemon = async (start, end) => {
+            pokemons.classList.add('hide')
+            loader.classList.remove('hide')
             pokemons.innerHTML = ""
+            setTimeout(()=>{
+                loader.classList.add('hide')
+                pokemons.classList.remove('hide')
+            },2000)
             for (let pk = start; pk <= end; pk++) {
                 const url = `https://pokeapi.co/api/v2/pokemon/${pk}`
                 const response = await fetch(url)
