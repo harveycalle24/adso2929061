@@ -9,44 +9,90 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
     <style>
-        select.pk-generation {
-            appearance: none;
-            padding: 0.4rem 0.8rem;
+        section {
             display: flex;
-            margin: 2rem auto;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        ul.pokemons {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.4rem;
+        div#home {
+            width: 380px;
+            height: 700px;
+            background: url(image/pokedex/fondohome.svg) center center no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
 
-            li {
-                border: 2px solid #fff9;
-                border-radius: 0.4rem;
-                text-align: center;
-
-                h4,
-                h5 {
-                    margin: 0;
-                    text-align: center;
-                    color: white;
-                }
-            }
-            &.hide{
+            &.hide {
                 display: none;
+                content: '';
             }
-
         }
 
-        img.loader{
+        div#list-pokemons {
+            background: url(image/pokedex/fondolist.svg);
+            padding: 10px;
+
+
+            select.pk-generation {
+                appearance: none;
+                padding: 0.4rem 0.8rem;
+                display: flex;
+                margin: 2rem auto;
+            }
+
+            ul.pokemons {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                height: 450px;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                &::-webkit-scrollbar{
+                    background-color: transparent;
+                }
+                &::-webkit-scrollbar-thumb {
+                    background-color: transparent;
+
+                }
+                gap: 0.4rem;
+
+                li {
+                    border: 2px solid #fff9;
+                    border-radius: 0.4rem;
+                    text-align: center;
+
+                    h4,
+                    h5 {
+                        margin: 0;
+                        text-align: center;
+                        color: white;
+                    }
+                }
+
+                &.hide {
+                    display: none;
+                }
+
+            }
+
+            &.hide {
+                display: none;
+                content: '';
+            }
+        }
+
+
+        img.loader {
             display: flex;
             margin: 8rem auto;
             width: 160px;
-            &.hide{
+
+            &.hide {
                 display: none;
             }
         }
@@ -70,14 +116,39 @@
 
         </header>
         <section>
-            <select class="pk-generation"></select>
+            <div id="home">
+                <a href="#list-pokemons" class="btn-list"><img src="image/pokedex/btn-list.svg" alt="Buscar"></a>
+            </div>
+            <div id="list-pokemons" class="hide">
+                <a href="#home" class="backhome"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5"
+                        viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                        <path fill="#FFD43B"
+                            d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                    </svg></a>
+                <img src="image/pokedex/logolist.svg" alt="logo">
+                <select class="pk-generation"></select>
 
-            <img class="loader" src="images/loader-bulb.gif" alt="">
+                <img class="loader" src="image/giphy.gif" alt="">
 
-            <ul class="pokemons"></ul>
+                <ul class="pokemons"></ul>
+            </div>
+
         </section>
     </main>
     <script>
+        const btnlist = document.querySelector('.btn-list')
+        const home = document.querySelector('#home')
+        const listpokemons = document.querySelector('#list-pokemons')
+        const backhome = document.querySelector('.backhome')
+
+        btnlist.addEventListener('click', (e) => {
+            home.classList.add('hide')
+            listpokemons.classList.remove('hide')
+        });
+        backhome.addEventListener('click', (e) => {
+            home.classList.remove('hide')
+            listpokemons.classList.add('hide')
+        });
 
         //Objects
 
@@ -121,7 +192,7 @@
 
         // select
         const pkGeneration = document.querySelector('.pk-generation')
-        
+
         pkGeneration.innerHTML = `<option value="">Select a generation...</option>`
         generations['range'].forEach((element, index) => {
             pkGeneration.innerHTML += `<option value="${index}">Generation ${++index}</option>`
@@ -143,10 +214,10 @@
             pokemons.classList.add('hide')
             loader.classList.remove('hide')
             pokemons.innerHTML = ""
-            setTimeout(()=>{
+            setTimeout(() => {
                 loader.classList.add('hide')
                 pokemons.classList.remove('hide')
-            },2000)
+            }, 2000)
             for (let pk = start; pk <= end; pk++) {
                 const url = `https://pokeapi.co/api/v2/pokemon/${pk}`
                 const response = await fetch(url)
