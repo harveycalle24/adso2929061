@@ -223,261 +223,120 @@
   </main>
 
   <script>
-const btnlist = document.querySelector('.btn-list');
-const home = document.querySelector('#home');
-const listpokemons = document.querySelector('#list-pokemons');
-const backhome = document.querySelector('.backhome');
-const pkGeneration = document.querySelector('.pk-generation');
-const pokemons = document.querySelector('.pokemons');
-const loader = document.querySelector('.loader');
+    const btnlist = document.querySelector('.btn-list');
+  const home = document.querySelector('#home');
+  const listpokemons = document.querySelector('#list-pokemons');
+  const backhome = document.querySelector('.backhome');
+  const pkGeneration = document.querySelector('.pk-generation');
+  const pokemons = document.querySelector('.pokemons');
+  const loader = document.querySelector('.loader');
 
-const types = {
-  electric: { color: "#f7d02c", emoji: "⚡" },
-  normal: { color: "#a8a77a", emoji: "🔘" },
-  fire: { color: "#ee8130", emoji: "🔥" },
-  water: { color: "#6390f0", emoji: "💧" },
-  grass: { color: "#7ac74c", emoji: "🌿" },
-  ice: { color: "#96d9d6", emoji: "❄️" },
-  fighting: { color: "#c22e28", emoji: "🥊" },
-  poison: { color: "#a33ea1", emoji: "☠️" },
-  ground: { color: "#e2bf65", emoji: "⛰️" },
-  flying: { color: "#a98ff3", emoji: "🕊️" },
-  psychic: { color: "#f95587", emoji: "🔮" },
-  bug: { color: "#a6b91a", emoji: "🐛" },
-  rock: { color: "#b6a136", emoji: "🪨" },
-  ghost: { color: "#735797", emoji: "👻" },
-  dragon: { color: "#6f35fc", emoji: "🐉" },
-  dark: { color: "#705746", emoji: "🌑" },
-  steel: { color: "#b7b7ce", emoji: "⚙️" },
-  fairy: { color: "#d685ad", emoji: "🧚" },
-  shadow: { color: "#5a5a5a", emoji: "🌫️" },
-  unknown: { color: "#68a090", emoji: "❔" }
-};
+  const types = {
+    electric: { color: "#f7d02c", emoji: "⚡" },
+    normal: { color: "#a8a77a", emoji: "🔘" },
+    fire: { color: "#ee8130", emoji: "🔥" },
+    water: { color: "#6390f0", emoji: "💧" },
+    grass: { color: "#7ac74c", emoji: "🌿" },
+    ice: { color: "#96d9d6", emoji: "❄️" },
+    fighting: { color: "#c22e28", emoji: "🥊" },
+    poison: { color: "#a33ea1", emoji: "☠️" },
+    ground: { color: "#e2bf65", emoji: "⛰️" },
+    flying: { color: "#a98ff3", emoji: "🕊️" },
+    psychic: { color: "#f95587", emoji: "🔮" },
+    bug: { color: "#a6b91a", emoji: "🐛" },
+    rock: { color: "#b6a136", emoji: "🪨" },
+    ghost: { color: "#735797", emoji: "👻" },
+    dragon: { color: "#6f35fc", emoji: "🐉" },
+    dark: { color: "#705746", emoji: "🌑" },
+    steel: { color: "#b7b7ce", emoji: "⚙️" },
+    fairy: { color: "#d685ad", emoji: "🧚" },
+    shadow: { color: "#5a5a5a", emoji: "🌫️" },
+    unknown: { color: "#68a090", emoji: "❔" }
+  };
 
-const generations = {
-  range: [
-    { from: 1, to: 151 },
-    { from: 152, to: 251 },
-    { from: 252, to: 386 },
-    { from: 387, to: 493 },
-    { from: 494, to: 649 },
-    { from: 650, to: 721 },
-    { from: 722, to: 809 },
-    { from: 810, to: 890 },
-    { from: 891, to: 1025 }
-  ]
-};
+  const generations = {
+    range: [
+      { from: 1, to: 151 },
+      { from: 152, to: 251 },
+      { from: 252, to: 386 },
+      { from: 387, to: 493 },
+      { from: 494, to: 649 },
+      { from: 650, to: 721 },
+      { from: 722, to: 809 },
+      { from: 810, to: 890 },
+      { from: 891, to: 1025 }
+    ]
+  };
 
-btnlist.addEventListener('click', () => {
-  home.classList.add('hide');
-  listpokemons.classList.remove('hide');
-});
+  btnlist.addEventListener('click', () => {
+    home.classList.add('hide');
+    listpokemons.classList.remove('hide');
+  });
 
-backhome.addEventListener('click', () => {
-  home.classList.remove('hide');
-  listpokemons.classList.add('hide');
-});
+  backhome.addEventListener('click', () => {
+    home.classList.remove('hide');
+    listpokemons.classList.add('hide');
+  });
 
-pkGeneration.innerHTML = `<option value="">Select a generation...</option>`;
-generations.range.forEach((g, i) => {
-  pkGeneration.innerHTML += `<option value="${i}">Generation ${i + 1}</option>`;
-});
+  pkGeneration.innerHTML = `<option value="">Select a generation...</option>`;
+  generations.range.forEach((g, i) => {
+    pkGeneration.innerHTML += `<option value="${i}">Generation ${i + 1}</option>`;
+  });
 
-pkGeneration.addEventListener('change', function () {
-  if (this.value !== "") {
-    loadPokemonNames(generations.range[this.value].from, generations.range[this.value].to);
-  }
-});
-
-async function loadPokemonNames(start, end) {
-  pokemons.classList.add('hide');
-  loader.classList.remove('hide');
-  pokemons.innerHTML = "";
-
-  setTimeout(async () => {
-    loader.classList.add('hide');
-    pokemons.classList.remove('hide');
-
-    for (let pk = start; pk <= end; pk++) {
-      const url = `https://pokeapi.co/api/v2/pokemon/${pk}`;
-      const response = await fetch(url);
-      const data = await response.json();
-
-      const li = document.createElement('li');
-      li.textContent = `${data.name}`;
-      li.style.cursor = "pointer";
-      li.style.padding = "0.5rem";
-      li.style.borderBottom = "1px solid #fff";
-      li.style.fontWeight = "bold";
-
-      li.addEventListener('click', () => {
-        displayPokemonDetails(data);
-      });
-
-      pokemons.appendChild(li);
+  pkGeneration.addEventListener('change', function () {
+    if (this.value !== "") {
+      loadPokemon(generations.range[this.value].from, generations.range[this.value].to);
     }
-  }, 500);
-}
+  });
 
-function displayPokemonDetails(data) {
-  const stats = data.stats.map(s => s.base_stat);
-  const type = data.types[0].type.name;
-  const typeData = types[type] || { color: "#fff", emoji: "❔" };
+  const loadPokemon = async (start, end) => {
+    pokemons.classList.add('hide');
+    loader.classList.remove('hide');
+    pokemons.innerHTML = "";
 
-  pokemons.innerHTML = `
-    <li class="pokemon-card">
-      <div class="card-header">
-        <h2 class="pk-name">${data.name}</h2>
-        <span class="pk-id">#${data.id}</span>
-        <span class="pk-type" style="background:${typeData.color}">
-          ${typeData.emoji} ${type}
-        </span>
-      </div>
-      <div class="pk-image">
-        <img src="${data.sprites.front_default}" alt="${data.name}">
-      </div>
-      <div class="pk-stats">
-        <h3>PK Stats</h3>
-        ${['HP', 'Atk', 'Def', 'SAtk', 'SDef', 'Spd', 'Total'].map((label, i) => {
-          const width = label === 'Total'
-            ? stats.reduce((a, b) => a + b, 0) / 6
-            : stats[i];
-          return `<div class="stat">
-                    <label>${label}</label>
-                    <div class="bar" style="width: ${width}%;"></div>
-                  </div>`;
-        }).join('')}
-      </div>
-    </li>`;
-}
-</script><script>
-const btnlist = document.querySelector('.btn-list');
-const home = document.querySelector('#home');
-const listpokemons = document.querySelector('#list-pokemons');
-const backhome = document.querySelector('.backhome');
-const pkGeneration = document.querySelector('.pk-generation');
-const pokemons = document.querySelector('.pokemons');
-const loader = document.querySelector('.loader');
+    setTimeout(async () => {
+      loader.classList.add('hide');
+      pokemons.classList.remove('hide');
+      for (let pk = start; pk <= end; pk++) {
+        const url = `https://pokeapi.co/api/v2/pokemon/${pk}`;
+        const response = await fetch(url);
+        const data = await response.json();
 
-const types = {
-  electric: { color: "#f7d02c", emoji: "⚡" },
-  normal: { color: "#a8a77a", emoji: "🔘" },
-  fire: { color: "#ee8130", emoji: "🔥" },
-  water: { color: "#6390f0", emoji: "💧" },
-  grass: { color: "#7ac74c", emoji: "🌿" },
-  ice: { color: "#96d9d6", emoji: "❄️" },
-  fighting: { color: "#c22e28", emoji: "🥊" },
-  poison: { color: "#a33ea1", emoji: "☠️" },
-  ground: { color: "#e2bf65", emoji: "⛰️" },
-  flying: { color: "#a98ff3", emoji: "🕊️" },
-  psychic: { color: "#f95587", emoji: "🔮" },
-  bug: { color: "#a6b91a", emoji: "🐛" },
-  rock: { color: "#b6a136", emoji: "🪨" },
-  ghost: { color: "#735797", emoji: "👻" },
-  dragon: { color: "#6f35fc", emoji: "🐉" },
-  dark: { color: "#705746", emoji: "🌑" },
-  steel: { color: "#b7b7ce", emoji: "⚙️" },
-  fairy: { color: "#d685ad", emoji: "🧚" },
-  shadow: { color: "#5a5a5a", emoji: "🌫️" },
-  unknown: { color: "#68a090", emoji: "❔" }
-};
+        const stats = data.stats.map(s => s.base_stat);
+        const type = data.types[0].type.name;
+        const typeData = types[type] || { color: "#fff", emoji: "❔" };
 
-const generations = {
-  range: [
-    { from: 1, to: 151 },
-    { from: 152, to: 251 },
-    { from: 252, to: 386 },
-    { from: 387, to: 493 },
-    { from: 494, to: 649 },
-    { from: 650, to: 721 },
-    { from: 722, to: 809 },
-    { from: 810, to: 890 },
-    { from: 891, to: 1025 }
-  ]
-};
+        pokemons.innerHTML += `
+          <li class="pokemon-card">
+            <div class="card-header">
+              <h2 class="pk-name">${data.name}</h2>
+              <span class="pk-id">#${data.id}</span>
+              <span class="pk-type" style="background:${typeData.color}">
+                ${typeData.emoji} ${type}
+              </span>
+            </div>
+            <div class="pk-image">
+              <img src="${data.sprites.front_default}" alt="${data.name}">
+            </div>
+            <div class="pk-stats">
+              <h3>PK Stats</h3>
+              ${['HP', 'Atk', 'Def', 'SAtk', 'SDef', 'Spd', 'Total'].map((label, i) => {
+                const width = label === 'Total'
+                  ? stats.reduce((a, b) => a + b, 0) / 6
+                  : stats[i];
+                return `<div class="stat">
+                          <label>${label}</label>
+                          <div class="bar" style="width: ${width}%;"></div>
+                        </div>`;
+              }).join('')}
+            </div>
+          </li>`;
+      }
+    }, 1000);
+  };
 
-btnlist.addEventListener('click', () => {
-  home.classList.add('hide');
-  listpokemons.classList.remove('hide');
-});
-
-backhome.addEventListener('click', () => {
-  home.classList.remove('hide');
-  listpokemons.classList.add('hide');
-});
-
-pkGeneration.innerHTML = `<option value="">Select a generation...</option>`;
-generations.range.forEach((g, i) => {
-  pkGeneration.innerHTML += `<option value="${i}">Generation ${i + 1}</option>`;
-});
-
-pkGeneration.addEventListener('change', function () {
-  if (this.value !== "") {
-    loadPokemonNames(generations.range[this.value].from, generations.range[this.value].to);
-  }
-});
-
-async function loadPokemonNames(start, end) {
-  pokemons.classList.add('hide');
-  loader.classList.remove('hide');
-  pokemons.innerHTML = "";
-
-  setTimeout(async () => {
-    loader.classList.add('hide');
-    pokemons.classList.remove('hide');
-
-    for (let pk = start; pk <= end; pk++) {
-      const url = `https://pokeapi.co/api/v2/pokemon/${pk}`;
-      const response = await fetch(url);
-      const data = await response.json();
-
-      const li = document.createElement('li');
-      li.textContent = `${data.name}`;
-      li.style.cursor = "pointer";
-      li.style.padding = "0.5rem";
-      li.style.borderBottom = "1px solid #fff";
-      li.style.fontWeight = "bold";
-
-      li.addEventListener('click', () => {
-        displayPokemonDetails(data);
-      });
-
-      pokemons.appendChild(li);
-    }
-  }, 500);
-}
-
-function displayPokemonDetails(data) {
-  const stats = data.stats.map(s => s.base_stat);
-  const type = data.types[0].type.name;
-  const typeData = types[type] || { color: "#fff", emoji: "❔" };
-
-  pokemons.innerHTML = `
-    <li class="pokemon-card">
-      <div class="card-header">
-        <h2 class="pk-name">${data.name}</h2>
-        <span class="pk-id">#${data.id}</span>
-        <span class="pk-type" style="background:${typeData.color}">
-          ${typeData.emoji} ${type}
-        </span>
-      </div>
-      <div class="pk-image">
-        <img src="${data.sprites.front_default}" alt="${data.name}">
-      </div>
-      <div class="pk-stats">
-        <h3>PK Stats</h3>
-        ${['HP', 'Atk', 'Def', 'SAtk', 'SDef', 'Spd', 'Total'].map((label, i) => {
-          const width = label === 'Total'
-            ? stats.reduce((a, b) => a + b, 0) / 6
-            : stats[i];
-          return `<div class="stat">
-                    <label>${label}</label>
-                    <div class="bar" style="width: ${width}%;"></div>
-                  </div>`;
-        }).join('')}
-      </div>
-    </li>`;
-}
-</script>
+    // Load first generation by default
+    loadPokemon(1, 151);
+  </script>
 </body>
 </html>
