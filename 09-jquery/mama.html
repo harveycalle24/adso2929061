@@ -1,0 +1,799 @@
+// 01
+$(document).ready(function() {
+            $('.install').text('✅ JQuery was Installed Succes')
+        })
+
+// 02
+
+// Large way
+        $(document).ready(function() {
+            $('.ready').text('DOM Loaded 💛')
+        })
+        // ShortHand
+        $(function() {
+            alert('DOM Loaded 💛')
+        })
+        // Ultra ShortHand
+        $(() => {
+            console.log('DOM Loaded 💛')
+        })
+
+// 03
+
+$(document).ready(function() {
+
+            // Check localStorage
+            if (localStorage.getItem('todolist') != null) {
+                $('.list').html(localStorage.getItem('todolist'))
+                countTasks()
+                countRemains()
+            } else {
+                // Count Tasks & Remains
+                countTasks()
+                countRemains()
+            }
+
+            // Add task
+            $('#add').click(function() {
+                if($('#input-task').val().length > 0) {
+                    $('.list').append(`<article>
+                                            <input type="checkbox">
+                                            <p>${$('#input-task').val()}</p>
+                                            <button>&times;</button>
+                                        </article>`)
+                    $('#input-task').val('')
+                    countTasks()
+                    countRemains()
+                } else {
+                    alert('Please: Enter a Task')
+                }
+            })
+
+            // Check Remain
+            $('.list').on('click', 'input:checkbox', function () {
+                if($(this).prop('checked')) {
+                    $(this).attr('checked', true)
+                    $(this).parent().addClass('checked')
+                } else {
+                    $(this).attr('checked', false)
+                    $(this).parent().removeClass('checked')
+                }
+                countRemains()
+            })
+
+            // Check Remain
+            $('.list').on('click', 'article button', function () {
+                 $(this).closest('article').remove()
+                 countTasks()
+                 countRemains()
+            })
+
+            // Reset Tasks
+            $('#reset').click(function() {
+                localStorage.setItem('todolist', $('.list').html(''))
+                countTasks()
+                countRemains()
+            })
+
+            // Count Tasks
+            function countTasks() {
+                $('.num-tasks').text($('article').length)
+                $('.title-tasks').text($('article').length > 1 ? 'Tasks' : 'Task')
+            }
+
+            // Count Remains
+            function countRemains() {
+                $remain = Math.abs($('.checked').length - $('article').length)
+                $('.num-remains').text($remain)
+                $('.title-remains').text($remain > 1 ? 'Remains' : 'Remain')
+                // Save All Tasks
+                localStorage.setItem('todolist', $('.list').html())
+            }
+        })
+
+// 04
+
+$(document).ready(function() {
+            $count = 0
+            // Addition
+            $('.btn-add').click(function(e) {
+                e.preventDefault()
+                $('output').text(++$count)
+            })
+            $('.btn-add').dblclick(function(e) {
+                e.preventDefault()
+                $('output').text($count+=4)
+            })
+            // Substraction
+            $('.btn-subs').click(function(e) {
+                e.preventDefault()
+                $('output').text(--$count)
+            })
+            $('.btn-subs').dblclick(function(e) {
+                e.preventDefault()
+                $('output').text($count-=4)
+            })
+            // Reset
+            $('.btn-reset').click(function(e) {
+                $interval = setInterval(() => {
+                    if($count != 0) {
+                        ($count > 0) ? $('output').text(--$count) : $('output').text(++$count)
+                    } else {
+                        clearInterval($interval)
+                    }
+                }, 250)
+            })
+        })
+
+// 05
+$(document).ready(function() {
+            // MouseEnter & MouseLeave
+            $('figure').mouseenter(function(e) {
+                $(this).css('filter', 'grayscale(0)')
+                $(this).children('img').css('transform', 'scale(1)')
+            })
+
+            $('figure').mouseleave(function(e) {
+                $(this).css('filter', 'grayscale(1)')
+                $(this).children('img').css('transform', 'scale(1.6)')
+            })
+
+            // KeyUp
+            $top  = 100
+            $left = 100
+            $(document).keyup(function(e) {
+                e.preventDefault()
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        if($left > 0) {
+                            $left -= 50
+                            $('.goku').css('left', $left+'px')
+                                      .css('transform', 'rotateY(0deg)')
+                        }
+                        break;
+                    case 'ArrowUp':
+                        if($top > 0) {
+                            $top -= 50
+                            $('.goku').css('top', $top+'px')
+                        }
+                        break;
+                    case 'ArrowRight':
+                        if($left < 200) {
+                            $left += 50
+                            $('.goku').css('left', $left+'px')
+                                      .css('transform', 'rotateY(-180deg)')
+                        }
+                        break;
+                    case 'ArrowDown':
+                        if($top < 200) {
+                            $top += 50
+                            $('.goku').css('top', $top+'px')
+                        }
+                        break;
+                }
+            })
+
+            // Change
+            $('.emoji').change(function(e) {
+                e.preventDefault()
+                $('.emotion').text($(this).val())
+            })
+        })
+
+// 06
+
+$(document).ready(function() {
+            // Event Change
+            $('.fx').change(function(e) {
+                e.preventDefault()
+                switch ($(this).val()) {
+                    case '1':
+                        $('.character').hide()
+                        toggleDisableds()
+                        break;
+                    case '2':
+                        $('.character').show()
+                        toggleDisableds()
+                        break;
+                    case '3':
+                        $('.character').toggle()
+                        toggleDisableds()
+                        break;
+                    case '4':
+                        $('.character').slideDown(2500)
+                        toggleDisableds()
+                        break;
+                    case '5':
+                        $('.character').slideUp(2500)
+                        toggleDisableds()
+                        break;
+                    case '6':
+                        $('.character').slideToggle(2500)
+                        toggleDisableds()
+                        break;
+                    case '7':
+                        $('.character').fadeIn(2500)
+                        toggleDisableds()
+                        break;
+                    case '8':
+                        $('.character').fadeOut(2500)
+                        toggleDisableds()
+                        break;
+                    case '9':
+                        $('.character').fadeTo(2500, 0.3)
+                        toggleDisableds()
+                        break;
+                    case '10':
+                        $('.character').fadeToggle(2500)
+                        toggleDisableds()
+                        break;
+                    case '11':
+                        $('.character').animate({ width: '120px'}, 2500)
+                                       .animate({ width: '260px'}, 2500)
+                        break;
+                    case '12':
+                        $('.character').stop()
+                        break;
+                }
+            })
+
+            // Disabled options
+            function toggleDisableds() {
+                $('option').each(function() {
+                    if($(this).text() != 'Toggle' &&
+                       $(this).text() != 'Slide Toggle' &&
+                       $(this).text() != 'Fade Toggle') {
+                        $(this).prop('disabled', !$(this).prop('disabled'))
+                    }
+                })
+            }
+        })
+
+
+// 07
+
+$(document).ready(function() {
+            $('.btn').click(function(e) {
+                $(this).css({
+                    'opacity': '0.5',
+                    'pointer-events': 'none'
+                })
+                $('figcaption').text('Animation Started')
+                $('.character').animate({'left': '160px'}, 2000, function() {
+                    $('.character').animate({'left': '-60px'}, 2000, function() {
+                        $('figcaption').text('Animation Finished')
+                        $('.btn').css({
+                            'opacity': '1',
+                            'pointer-events': 'all'
+                        })
+                    })
+                })
+            })
+        })
+
+// 08
+
+$(document).ready(function() {
+            $('.btn').click(function(e) {
+                $(this).css({
+                        'opacity': '0.5',
+                        'pointer-events': 'none'
+                })
+                $('.goku').animate({'left': '200px'}, 2000)
+                          .animate({'top': '180px'}, 2000)
+                          .animate({'left': '10px'}, 2000)
+                          .animate({'top': '10px'}, 2000, function() {
+                                $('.btn').css({
+                                    'opacity': '1',
+                                    'pointer-events': 'all'
+                                })
+                          })
+            })
+        })
+
+// 09
+
+$(document).ready(function () {
+            // Set
+            $('section').on('click', '.set-html', function () {
+                $('.text-area').html('<ul><li>Apple</li></ul>')
+            })
+            $('section').on('click', '.set-text', function () {
+                $('.text-area').text('Lorem ipsum dolor sit amet.')
+            })
+            $('section').on('click', '.set-attr', function () {
+                $('.text-area').attr('rows', '20')
+            })
+            $('section').on('click', '.set-value', function () {
+                $('.text-area').val('Memento Mori')
+            })
+
+            // Get
+            $('section').on('click', '.get-html', function () {
+                alert($('.actions').html())
+            })
+            $('section').on('click', '.get-text', function () {
+                alert($('header p').text())
+            })
+            $('section').on('click', '.get-attr', function () {
+                alert($('.text-area').attr('rows'))
+            })
+            $('section').on('click', '.get-value', function () {
+                alert($('.text-area').val())
+            })
+        })
+
+// 10
+
+$(document).ready(function () {
+            // Append (Add last child)
+            $('.actions').on('click', '.append', function () {
+                if(checkSelection()) {
+                    $fruit = $('input[name=fruit]:checked')
+                    $('.output').append(`<li>${$fruit.val()}<span>&times;</span></li>`)
+                    $($fruit).prop('checked', false)
+                } else {
+                    alert('Please: Check a Fruit!')
+                }
+            })
+            // Prepend (Add first child)
+            $('.actions').on('click', '.prepend', function () {
+                if(checkSelection()) {
+                    $fruit = $('input[name=fruit]:checked')
+                    $('.output').prepend(`<li>${$fruit.val()}<span>&times;</span></li>`)
+                    $($fruit).prop('checked', false)
+                } else {
+                    alert('Please: Check a Fruit!')
+                }
+            })
+            // Before (Add Sibling Before)
+            $('.actions').on('click', '.before', function () {
+                $('.list ol:first').before('<ul><li>Before<span>&times;</span></li></ul>')
+            })
+            // After (Add Sibling After)
+            $('.actions').on('click', '.after', function () {
+                $('.list ol:last').after('<ul><li>After<span>&times;</span></li></ul>')
+            })
+            // Remove (Remove this element)
+            $('.list').on('click', 'li span', function () {
+                $(this).parent().remove()
+            })
+            // Empty (Remove all children)
+            $('.actions').on('click', '.empty', function () {
+                $('.list ul').remove()
+                $('.list ol').empty()
+            })
+        })
+        // Functions
+        function checkSelection() {
+            $isCheked = false
+            $fruits = $('input[name=fruit]')
+            $.each($fruits, function (index, element) { 
+                 if($(element).prop('checked')) {
+                    $isCheked = true
+                 }
+            })
+            if($isCheked) return true
+            else return false
+        }
+
+// 11
+$(document).ready(function () {
+            currentActive()
+            // First
+            $('.btnFirst').click(function() {
+                removeActive()
+                $('figure').first().addClass('active')
+                currentActive()
+            })
+            // Last
+            $('.btnLast').click(function() {
+                removeActive()
+                $('figure').last().addClass('active')
+                currentActive()
+            })
+            // Next
+            $('.btnNext').click(function() {
+                removeActive()
+               if($($act).index() < 4) {
+                    $($act).next().addClass('active')
+               } else {
+                    $('figure').first().addClass('active')
+               }
+                currentActive()
+            })
+            // Prev
+            $('.btnPrev').click(function() {
+                removeActive()
+               if($($act).index() > 0) {
+                    $($act).prev().addClass('active')
+               } else {
+                    $('figure').last().addClass('active')
+               }
+                currentActive()
+            })
+            // AutoPlay
+            $('.btnAutoPlay').click(function() {
+                $(this).toggleClass('autoplay')
+                if($(this).hasClass('autoplay')) {
+                    $(this).text('Stop')
+                    $autoInt = setInterval(function() {
+                        if($($act).index() < $('figure').length) {
+                            removeActive()
+                            if ($($act).index() < 4) {
+                                $($act).next().addClass('active')
+                            } else {
+                                $('figure').first().addClass('active')
+                            }
+                            currentActive()
+                        }
+                    }, 1000)
+                } else {
+                    $(this).text('Auto Play')
+                    clearInterval($autoInt)
+                }
+            })
+        })
+        // Functions
+        function currentActive() {
+            $act = $('figure.active')
+        }
+        function removeActive() {
+            $('figure').removeClass('active')
+        }
+
+// 12
+
+
+
+// 13
+
+        $(document).ready(function() {
+            // Events
+			$('body').on('click', 'div.rowt:not(.mark)', function(event) {
+				event.preventDefault();
+				if( $('figure.tictactoe').hasClass('turn-cross') ) {
+					$(this).addClass('cross');
+					$('figure.tictactoe').removeClass('turn-cross')
+										  .addClass('turn-circle');
+				} else {
+					$(this).addClass('circle');
+					$('figure.tictactoe').removeClass('turn-circle')
+										  .addClass('turn-cross');
+				}
+				$(this).addClass('mark');
+				if(!checkWinner()) {
+					checkDraw();
+				}
+			});
+
+			$('.btn-reset').click(function(event) {
+				$('div.rowt').removeClass('mark')
+							.removeClass('markwin')
+							.removeClass('markdraw')
+				            .removeClass('cross')
+				            .removeClass('circle');
+				$('figure.tictactoe').removeClass('turn-circle')
+									  .addClass('turn-cross');
+				$('h4').remove();
+			});
+
+			// Functions
+			function checkWinner() {
+				// X
+				if($('div.rowt').eq(0).hasClass('cross') && 
+				   $('div.rowt').eq(1).hasClass('cross') &&
+				   $('div.rowt').eq(2).hasClass('cross')) {
+						markWinners(0,1,2,'X');
+						return true;
+				}
+				if($('div.rowt').eq(3).hasClass('cross') && 
+				   $('div.rowt').eq(4).hasClass('cross') &&
+				   $('div.rowt').eq(5).hasClass('cross')) {
+						markWinners(3,4,5,'X');
+						return true;
+				}
+				if($('div.rowt').eq(6).hasClass('cross') && 
+				   $('div.rowt').eq(7).hasClass('cross') &&
+				   $('div.rowt').eq(8).hasClass('cross')) {
+						markWinners(6,7,8,'X');
+						return true;
+				}
+				if($('div.rowt').eq(0).hasClass('circle') && 
+				   $('div.rowt').eq(1).hasClass('circle') &&
+				   $('div.rowt').eq(2).hasClass('circle')) {
+						markWinners(0,1,2,'O');
+						return true;
+				}
+				if($('div.rowt').eq(3).hasClass('circle') && 
+				   $('div.rowt').eq(4).hasClass('circle') &&
+				   $('div.rowt').eq(5).hasClass('circle')) {
+						markWinners(3,4,5,'O');
+						return true;
+				}
+				if($('div.rowt').eq(6).hasClass('circle') && 
+				   $('div.rowt').eq(7).hasClass('circle') &&
+				   $('div.rowt').eq(8).hasClass('circle')) {
+						markWinners(6,7,8,'O');
+						return true;
+				}
+				// Y
+				if($('div.rowt').eq(0).hasClass('cross') && 
+				   $('div.rowt').eq(3).hasClass('cross') &&
+				   $('div.rowt').eq(6).hasClass('cross')) {
+						markWinners(0,3,6,'X');
+						return true;
+				}
+				if($('div.rowt').eq(1).hasClass('cross') && 
+				   $('div.rowt').eq(4).hasClass('cross') &&
+				   $('div.rowt').eq(7).hasClass('cross')) {
+						markWinners(1,4,7,'X');
+						return true;
+				}
+				if($('div.rowt').eq(2).hasClass('cross') && 
+				   $('div.rowt').eq(5).hasClass('cross') &&
+				   $('div.rowt').eq(8).hasClass('cross')) {
+						markWinners(2,5,8,'X');
+						return true;
+				}
+				if($('div.rowt').eq(0).hasClass('circle') && 
+				   $('div.rowt').eq(3).hasClass('circle') &&
+				   $('div.rowt').eq(6).hasClass('circle')) {
+						markWinners(0,3,6,'O');
+						return true;
+				}
+				if($('div.rowt').eq(1).hasClass('circle') && 
+				   $('div.rowt').eq(4).hasClass('circle') &&
+				   $('div.rowt').eq(7).hasClass('circle')) {
+						markWinners(1,4,7,'O');
+						return true;
+				}
+				if($('div.rowt').eq(2).hasClass('circle') && 
+				   $('div.rowt').eq(5).hasClass('circle') &&
+				   $('div.rowt').eq(8).hasClass('circle')) {
+						markWinners(2,5,8,'O');
+						return true;
+				}
+				// Diagonals
+				if($('div.rowt').eq(0).hasClass('cross') && 
+				   $('div.rowt').eq(4).hasClass('cross') &&
+				   $('div.rowt').eq(8).hasClass('cross')) {
+						markWinners(0,4,8,'X');
+						return true;
+				}
+				if($('div.rowt').eq(2).hasClass('cross') && 
+				   $('div.rowt').eq(4).hasClass('cross') &&
+				   $('div.rowt').eq(6).hasClass('cross')) {
+						markWinners(2,4,6,'X');
+						return true;
+				}
+				if($('div.rowt').eq(0).hasClass('circle') && 
+				   $('div.rowt').eq(4).hasClass('circle') &&
+				   $('div.rowt').eq(8).hasClass('circle')) {
+						markWinners(0,4,8,'O');
+						return true;
+				}
+				if($('div.rowt').eq(2).hasClass('circle') && 
+				   $('div.rowt').eq(4).hasClass('circle') &&
+				   $('div.rowt').eq(6).hasClass('circle')) {
+						markWinners(2,4,6,'O');
+						return true;
+				}
+				return false;
+			}
+
+			function markWinners(i1,i2,i3,mk) {
+				$('div.rowt').eq(i1).addClass('markwin');
+				$('div.rowt').eq(i2).addClass('markwin');
+				$('div.rowt').eq(i3).addClass('markwin');
+				$('h3').html('<h3>WON THE: '+mk+'</h3>');
+				$('div.rowt').addClass('mark');
+			}
+
+			function checkDraw(){
+				if($('div.rowt.mark').length == 9) {
+					$('h3').html('<h3>DRAW</h3>');
+					$('div.rowt').addClass('markdraw');
+				}
+			}
+        });
+
+
+// 14
+
+
+        $(document).ready(function() {
+            // Events
+			$('button.btn-d1').click(function(event) {
+				$w = $('div.box').width();
+				$h = $('div.box').height();
+				alert("Width: "+$w+"px - Height: "+$h+"px");
+			});
+			$('button.btn-d2').click(function(event) {
+				$w = $('div.box').innerWidth();
+				$h = $('div.box').innerHeight();
+				alert("Width: "+$w+"px - Height: "+$h+"px");
+			});
+			$('button.btn-d3').click(function(event) {
+				$w = $('div.box').outerWidth();
+				$h = $('div.box').outerHeight();
+				alert("Width: "+$w+"px - Height: "+$h+"px");
+			});
+			$('button.btn-d4').click(function(event) {
+				$w = $(window).width();
+				$h = $(window).height();
+				alert("Width: "+$w+"px - Height: "+$h+"px");
+			});
+        });
+
+// 15
+
+$(document).ready(function() {
+            // Events
+            $('.btn-load').click(function(event) {
+				$('.text').load('text/lorem.txt').hide().fadeIn(1200);
+			});
+			$('.btn-load-lp').click(function(event) {
+				$('.text').load('text/lorem.txt .lp').hide().fadeIn(1200);
+			});
+        });
+
+// 16
+
+$(document).ready(function() {
+            // Events
+			$('.btn-load').click(function(event) {
+				// Ajax
+				$.ajax({
+					url: 'json/games.json',
+					dataType: 'json',
+				})
+				.done(function(data) {
+					$('.games').html('');
+					$.each(data, function(index, val) {
+						 $('.games').append('<li>'+val['name']+' - \
+						                   ('+val['year']+')</li>');
+					});
+					console.log("success");
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+				
+			});
+        });
+
+//17 
+
+$(document).ready(function() {
+			$('.references').hide();
+			$('.loader').hide();
+			// Events
+			$('.brands').change(function(event) {
+				$brn = $(this).val();
+				if ($brn.length > 0) {
+					$('.loader').show();
+					$('.references').hide();
+					// GET
+					$.get('php/references.php', { brn: $brn }, function(data) {
+						setTimeout(function() {
+							$('.loader').hide();
+							$('.references').fadeIn(1000).html(data);
+						},1000);
+					});
+				} else {
+					$('.references').hide();
+				}
+			});
+        });
+
+//18
+
+$(document).ready(function() {
+            // Events
+			$('.images').change(function(event) {
+				$img = $(this).val();
+				if($img.length > 0) {
+					$('.image').removeClass('animate__flipInX');
+					// POST
+					$.post('php/images.php', {img: $img}, function(data) {
+						$('.image').addClass('animate__flipInX');
+						$('.image').css('background-image', 'url('+data+')');
+					});
+				}
+			});
+        });
+
+// 19
+
+$(document).ready(function() {
+            $('div.drag').draggable({
+				containment: '.landscape',
+				cursor: 'move',
+				snap: '.pk',
+				snapMode: 'inner',
+				revert: 'invalid'
+			});
+			$('div.bulbassaur').droppable({
+				accept: '.drag',
+				drop: function(evt, ui) {
+					$drag = $(ui.draggable);
+					$drop = $(this);
+					$drop.fadeOut(1000);
+					$drag.addClass('animate__animated animate__bounce animate__infinite	')
+				}
+			});
+			$('div.venussaur').droppable({
+				accept: '.superball',
+				drop: function(evt, ui) {
+					$drag = $(ui.draggable);
+					$drop = $(this);
+					$drop.fadeOut(1000);
+					$drag.addClass('animate__animated animate__bounce animate__infinite	')
+				}
+			});
+        });
+
+//20 
+
+$(document).ready(function() {
+            $('.pk').draggable({
+				containment: '.columnst',
+				cursor: 'move',
+				snap: '.stage',
+				snapMode: 'inner',
+				grid: [120,150],
+				revert: 'invalid'
+			});
+			$('.stage2').droppable({
+				accept: '.pk1',
+				drop: function(evt, ui) {
+					$ui = $(ui.draggable);
+					$ui.removeClass('pk1').addClass('pk2 animate__pulse');
+					$ni = parseInt($ui.attr('id').substring(4,2))+1;
+					$ui.attr('id', 'pk'+$ni);
+				}
+			});
+			$('.stage3').droppable({
+				accept: '.pk2',
+				drop: function(evt, ui) {
+					$ui = $(ui.draggable);
+					$ui.removeClass('pk2').addClass('pk3 animate__tada');
+					$ni = parseInt($ui.attr('id').substring(4,2))+1;
+					$ui.attr('id', 'pk'+$ni);
+				}
+			});
+        });
+
+
+//21 
+
+$(document).ready(function() {
+            //$.validate({ lang: 'en' })
+            $.validate({ lang: 'es' })
+        })
+
+// 22
+
+$(document).ready(function() {
+            $('.owl-carousel').owlCarousel({
+				items: 3,
+				loop: true,
+			    margin: 10,
+			    nav: true,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:2
+                    },
+                    1000:{
+                        items:3
+                    }
+                }
+			});
+        });
