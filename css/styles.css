@@ -61,7 +61,7 @@ body, html{
 /* - - - - - - - - - - - - - */
 :root {
     --color-1: rgba(0, 0, 0, 0);
-    --color-2: rgba(57, 206, 211, 0.719);
+    --color-2: rgba(255, 255, 255, 0.719);
     --font-fm: Poppins, sans-serif;
 }
 /* - - - - - - - - - - - - - */

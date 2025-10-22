@@ -4,13 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>01-install</title>
+    <title>16-ajax-ajax</title>
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/styles.css">
     <script src="js/jquery-3.7.1.min.js"></script>
+    <style>
+	ul.games {
+		list-style: none;
+		padding: 0px;
+		margin: 0px auto;
+		width: 300px;
+	}
+	ul.games li {
+		padding: 8px 4px;
+		border-bottom: 1px solid #4f5c6e;
+	}
+	button.btn-load {
+		background-color: #fff;
+		border: 1px solid #4f5c6e;
+		border-radius: 4px;
+		display: block;
+		margin: 40px auto;
+		color: #4f5c6e;
+		padding: 10px 10px;
+		width: 150px;
+	}
+	button.btn-load:hover {
+		background-color: #4f5c6e;
+		color: #fff;
+		cursor: pointer;
+	}
+</style>
 </head>
 
-<body class="jQuery">
+<body class="jquery">
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -22,15 +49,40 @@
     </a>
     <main>
         <header>
-            <h1>01-install</h1>
+            <h1>16-ajax-ajax</h1>
             <h2>Configura e incluye jQuery en tu proyecto. </h2>
         </header>
         <section>
-    
-        </section>
+	<ul class="games"></ul>
+	<button class="btn-load"> Load Game List </button>
+</section>
     </main>
     <script>
-        
+        $(document).ready(function() {
+            // Events
+			$('.btn-load').click(function(event) {
+				// Ajax
+				$.ajax({
+					url: 'json/games.json',
+					dataType: 'json',
+				})
+				.done(function(data) {
+					$('.games').html('');
+					$.each(data, function(index, val) {
+						 $('.games').append('<li>'+val['name']+' - \
+						                   ('+val['year']+')</li>');
+					});
+					console.log("success");
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+				
+			});
+        });
     </script>
 </body>
 

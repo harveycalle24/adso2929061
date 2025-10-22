@@ -4,13 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>01-install</title>
+    <title>19-ui-draggable-droppable</title>
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/styles.css">
     <script src="js/jquery-3.7.1.min.js"></script>
+    <style>
+	figure.landscape {
+		background: url(images/bg-pokemon.png) no-repeat center;
+		background-size: cover;
+		height: 500px;
+		margin: 20px auto;
+		position: relative;
+		width: 370px;
+	}
+	div.pokeball {
+		background: url(images/pokeball.png) no-repeat center;
+		top: 24px; left: 40px;
+	}
+	div.superball {
+		background: url(images/superball.png) no-repeat center;
+		top: 24px; left: 224px;
+	}
+	div.pokeball,
+	div.superball {
+		background-size: cover;
+		height: 90px;
+		position: absolute;
+		width: 90px;
+		z-index: 9;
+	}
+	div.bulbassaur,
+	div.venussaur {
+		position: absolute;
+	}
+	div.bulbassaur {
+		background: url(images/bulbasaur.png) no-repeat center;
+		background-size: cover;
+		height: 124px;
+		bottom: 20px; left: 0px;
+		width: 124px;
+	}
+	div.venussaur {
+		background: url(images/venussaur.png) no-repeat center;
+		background-size: contain;
+		height: 207px;
+		bottom: 20px; right: -20px;
+		width: 300px;
+	}
+</style>
 </head>
 
-<body class="jQuery">
+<body class="jquery">
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -22,15 +66,46 @@
     </a>
     <main>
         <header>
-            <h1>01-install</h1>
+            <h1>19-ui-draggable-droppable</h1>
             <h2>Configura e incluye jQuery en tu proyecto. </h2>
         </header>
         <section>
-    
-        </section>
+	<figure class="landscape">
+		<div class="drag pokeball"></div>
+		<div class="drag superball"></div>
+		<div class="pk bulbassaur"></div>
+		<div class="pk venussaur"></div>
+	</figure>
+</section>
     </main>
     <script>
-        
+        $(document).ready(function() {
+            $('div.drag').draggable({
+				containment: '.landscape',
+				cursor: 'move',
+				snap: '.pk',
+				snapMode: 'inner',
+				revert: 'invalid'
+			});
+			$('div.bulbassaur').droppable({
+				accept: '.drag',
+				drop: function(evt, ui) {
+					$drag = $(ui.draggable);
+					$drop = $(this);
+					$drop.fadeOut(1000);
+					$drag.addClass('animate_animated animatebounce animate_infinite	')
+				}
+			});
+			$('div.venussaur').droppable({
+				accept: '.superball',
+				drop: function(evt, ui) {
+					$drag = $(ui.draggable);
+					$drop = $(this);
+					$drop.fadeOut(1000);
+					$drag.addClass('animate_animated animatebounce animate_infinite	')
+				}
+			});
+        });
     </script>
 </body>
 

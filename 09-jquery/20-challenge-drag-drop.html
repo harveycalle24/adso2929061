@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>01-install</title>
+    <title>20-challenge-drag-drop</title>
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/styles.css">
     <script src="js/jquery-3.7.1.min.js"></script>
 </head>
 
-<body class="jQuery">
+<body class="jquery">
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@
     </a>
     <main>
         <header>
-            <h1>01-install</h1>
+            <h1>20-challenge-drag-drop</h1>
             <h2>Configura e incluye jQuery en tu proyecto. </h2>
         </header>
         <section>
@@ -30,7 +30,34 @@
         </section>
     </main>
     <script>
-        
+        $(document).ready(function() {
+            $('.pk').draggable({
+				containment: '.columnst',
+				cursor: 'move',
+				snap: '.stage',
+				snapMode: 'inner',
+				grid: [120,150],
+				revert: 'invalid'
+			});
+			$('.stage2').droppable({
+				accept: '.pk1',
+				drop: function(evt, ui) {
+					$ui = $(ui.draggable);
+					$ui.removeClass('pk1').addClass('pk2 animate__pulse');
+					$ni = parseInt($ui.attr('id').substring(4,2))+1;
+					$ui.attr('id', 'pk'+$ni);
+				}
+			});
+			$('.stage3').droppable({
+				accept: '.pk2',
+				drop: function(evt, ui) {
+					$ui = $(ui.draggable);
+					$ui.removeClass('pk2').addClass('pk3 animate__tada');
+					$ni = parseInt($ui.attr('id').substring(4,2))+1;
+					$ui.attr('id', 'pk'+$ni);
+				}
+			});
+        });
     </script>
 </body>
 

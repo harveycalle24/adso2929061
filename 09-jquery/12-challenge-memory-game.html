@@ -1,37 +1,367 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>01-install</title>
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <title>Juego de Memoria de Motos</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <script src="js/jquery-3.7.1.min.js"></script>
+    <style>
+        section.memory-game {
+            /* slightly narrower: 5% less than 400px */
+            max-width: 380px;
+            margin: 2rem auto;
+            padding: 2rem 1rem;
+            background: linear-gradient(rgba(0, 7, 195, 0), rgba(0, 94, 225, 0)), url('images/fondo.png');
+            border-radius: 1rem;
+            box-shadow: 0 2px 12px #0002;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            z-index: 1;
+        }
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: rgb(255, 255, 255);
+            gap: 1.5rem;
+        }
+        .game-info > div {
+            background: #c9044cc3;
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            border: 2px solid #c9044cc3;
+            box-shadow: 0 2px 8px rgba(83, 16, 16, 0.114);
+            min-width: 130px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        /* lift the counter boxes a bit so they stand out */
+        .game-info > div {
+            transform: translateY(-20px);
+            z-index: 3;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .logo img {
+            width: 160px;
+            max-width: 80%;
+            height: auto;
+            display: inline-block;
+        }
+        .memory-board {
+            display: grid;
+            /* 3 columns so each column has 4 cards (3 x 4 = 12) */
+            grid-template-columns: repeat(3, 82px);
+            gap: 14px;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .card {
+            /* cards 82x82 with rounded corners */
+            width: 82px;
+            height: 82px;
+            position: relative;
+            cursor: pointer;
+            perspective: 600px;
+        }
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.4s;
+            transform-style: preserve-3d;
+        }
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+        }
+        .card-front {
+            transform: rotateY(180deg);
+            z-index: 2;
+        }
+        .card-back {
+            background: #ffffff;
+            z-index: 1;
+        }
+        .card.matched {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .message {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: #b31717;
+            font-weight: bold;
+        }
+        .timer {
+            color: #ffffff;
+        }
+        .controls {
+            margin-top: 0.5rem;
+        }
+        .controls button {
+            background: #c9044cc3;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 2px 6px #0002;
+        }
+        .controls button.restart {
+            background: #d32f2f;
+        }
+        .controls button:focus { outline: none; }
+    </style>
 </head>
-
 <body class="jQuery">
-    <nav>
+    <main>
+        <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                 <path fill="#ffffff"
                     d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
             </svg>
+        </a>
     </nav>
-    </a>
-    <main>
         <header>
-            <h1>01-install</h1>
-            <h2>Configura e incluye jQuery en tu proyecto. </h2>
+            <h1>Juego de Memoria de Motos</h1>
+            <p style="text-align:center;">
+                Encuentra los pares de motos. ¡Pon a prueba tu memoria!
+            </p>
         </header>
-        <section>
-    
-        </section>
-    </main>
-    <script>
-        
-    </script>
-</body>
+        <section class="memory-game">
+            <div class="logo">
+                <img src="images/motopox.png" alt="Logo del juego">
+            </div>
+            <div class="game-info">
+                <div>Tiempo: <span class="timer">01:00</span></div>
+                <div>Movimientos: <span class="moves">0</span></div>
+            </div>
+            <div class="memory-board"></div>
+            <div class="message"></div>
+            <div class="controls" style="text-align:center;margin-top:0.5rem;">
+                <button id="start-restart" class="start">Iniciar</button>
 
+
+
+            </div>
+            
+        </section>
+        <iframe 
+  src="https://embed.figma.com/design/8HORRGc8rlpg5Ks3U0adzb/Sin-t%C3%ADtulo?node-id=0-1&embed-host=share" 
+  width="300" 
+  height="450" 
+  style="border:1px solid #0001" 
+  allowfullscreen>
+</iframe>
+    </main>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        currentActive();
+
+        const motos = [
+            { img: 'images/Rectangle 18.png', name: 'Yamaha' },
+            { img: 'images/Rectangle 19.png', name: 'Ducati' },
+            { img: 'images/Rectangle 20.png', name: 'Kawasaki' },
+            { img: 'images/Rectangle 33.png', name: 'BMW' },
+            { img: 'images/Rectangle 34.png', name: 'Honda' },
+            { img: 'images/Rectangle 35.png', name: 'Suzuki' }
+        ];
+
+        let cards = $.map([...motos, ...motos], function (moto, i) {
+            return $.extend({}, moto, { id: i });
+        });
+
+        cards = cards.sort(function () {
+            return Math.random() - 0.5;
+        });
+
+        function renderBoard() {
+            const $board = $('.memory-board');
+            $board.empty();
+            $.each(cards, function (idx, card) {
+                $board.append(`
+                    <div class="card" data-idx="${idx}">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="${card.img}" alt="${card.name}" style="width:100%;height:100%;">
+                            </div>
+                            <div class="card-back">
+                                <img src="images/tapa01.png" alt="Tapada" style="width:100%;height:100%;">
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+    let flipped = [];
+    let lock = false;
+    let moves = 0;
+    let matchedPairs = 0;
+    let timer = 60;
+    let timerInterval;
+    let gameEnded = false;
+    let started = false; // whether game has started
+
+        function updateMoves() {
+            $('.moves').text(moves);
+        }
+
+        function updateTimer() {
+            let min = Math.floor(timer / 60);
+            let sec = timer % 60;
+            $('.timer').text(
+                (min < 10 ? '0' : '') + min + ':' + (sec < 10 ? '0' : '') + sec
+            );
+        }
+
+        function showMessage(msg, color = "#2c4674") {
+            $('.message').text(msg).css('color', color);
+        }
+
+        function endGame(win) {
+            gameEnded = true;
+            window.clearInterval(timerInterval);
+            if (win) {
+                showMessage('¡Ganaste! Encontraste todos los pares en ' + moves + ' movimientos.');
+            } else {
+                showMessage('Se acabó el tiempo, Intenta de nuevo.', "#d32f2f");
+                $('.card').css('pointer-events', 'none');
+            }
+            // update button to show restart
+            $('#start-restart').text('Reiniciar').removeClass('start').addClass('restart');
+        }
+
+        function flipCard($card, idx) {
+            if (!started) return; // block flips until game started
+            if (lock || $card.hasClass('flipped') || $card.hasClass('matched') || gameEnded) return;
+            $card.addClass('flipped');
+            flipped.push(idx);
+
+            if (flipped.length === 2) {
+                moves++;
+                updateMoves();
+                lock = true;
+                const i1 = flipped[0], i2 = flipped[1];
+                if (cards[i1].name === cards[i2].name) {
+                    $.delay(600, function () {
+                        $(`.card[data-idx="${i1}"], .card[data-idx="${i2}"]`).addClass('matched');
+                        flipped = [];
+                        lock = false;
+                        matchedPairs++;
+                        if (matchedPairs === motos.length) {
+                            endGame(true);
+                        }
+                    });
+                } else {
+                    $.delay(1000, function () {
+                        $(`.card[data-idx="${i1}"], .card[data-idx="${i2}"]`).removeClass('flipped');
+                        flipped = [];
+                        lock = false;
+                    });
+                }
+            }
+        }
+
+        
+        // render the board and show a quick preview but keep game locked until Start
+        function prepareBoard() {
+            renderBoard();
+            // show preview
+            $('.card').addClass('flipped');
+            $.delay(2000, function () {
+                $('.card').removeClass('flipped');
+            });
+        }
+
+        prepareBoard();
+
+        // delegate click to cards
+        $('.memory-board').on('click', '.card', function () {
+            const idx = $(this).data('idx');
+            flipCard($(this), idx);
+        });
+
+        // timer updater but not running until started
+        updateTimer();
+        function startTimer() {
+            window.clearInterval(timerInterval);
+            timerInterval = window.setInterval(function () {
+                if (gameEnded || !started) return;
+                timer--;
+                updateTimer();
+                if (timer <= 0) {
+                    endGame(false);
+                }
+            }, 1000);
+        }
+
+        // Start/Restart button handler
+        $('#start-restart').on('click', function () {
+            const $btn = $(this);
+            if ($btn.hasClass('start')) {
+                // start game
+                started = true;
+                gameEnded = false;
+                moves = 0; matchedPairs = 0; flipped = []; lock = false;
+                timer = 60;
+                updateMoves(); updateTimer();
+                $btn.text('Reiniciar').removeClass('start').addClass('restart');
+                startTimer();
+            } else {
+                // restart behavior
+                // stop timer
+                window.clearInterval(timerInterval);
+                // reset state
+                started = true;
+                gameEnded = false;
+                moves = 0; matchedPairs = 0; flipped = []; lock = false;
+                timer = 60;
+                // reshuffle cards and re-render
+                cards = $.map([...motos, ...motos], function (moto, i) {
+                    return $.extend({}, moto, { id: i });
+                });
+                cards = cards.sort(function () { return Math.random() - 0.5; });
+                renderBoard();
+                updateMoves(); updateTimer();
+                // show quick preview
+                $('.card').addClass('flipped');
+                $.delay(1200, function () {
+                    $('.card').removeClass('flipped');
+                });
+                startTimer();
+            }
+        });
+    });
+
+    function currentActive() { }
+    
+    
+    $.delay = function (time, callback) {
+        return $('<div>').delay(time).queue(function (next) {
+            callback();
+            next();
+        });
+    };
+</script>
+
+</body>
 </html>
