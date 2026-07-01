@@ -1,0 +1,4 @@
+cd .\19-laravel\
+php artisan serve
+php artisan migrate
+ php artisan db:seed
